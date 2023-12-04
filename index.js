@@ -8,12 +8,14 @@ const cors = require('cors');
 const PORT = 3000
 
 var corsSettings = {
-    origin: "localhost:56197"
+     origin: "http://localhost:56197"
 }
 // This variable instantiate the Express.js library
 const app = express()
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 //use corsSettings
 app.use(cors());
@@ -28,6 +30,7 @@ app.use(bodyParser.json());
 
 //import routes
 require('./Routes/product.routes.js')(app);
+require('./Routes/user.routes.js')(app);
 
 
 // The code below starts the API with these parameters:

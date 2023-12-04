@@ -1,37 +1,55 @@
 const sql = require("./db.js");
 
-const Product = function(product) {
-    this.name = product.name;
-    this.description = product.description;
-    this.price = product.price;
-};
-
-Product.create = (newProduct, result) => {
-    sql.query("INSERT INTO tbl_products SET ?", newProduct, (e, res) => {
-        if (e) {
-            console.log("error: ", e);
-            result(e, null);
-            return;
-        }
-        console.log("New Product Created: ", {id: result.insertId, ...newProduct})
-        result(null, {id: result.insertId, ...newProduct });
-    })
-}
-
-
-Product.getAll = (result) => {
-    let query = "SELECT * FROM tbl_products";
-
-    sql.query(query, (e, res) => {
-        if (e) {
-          console.log("error: ", e);
-          result(null, e);
+class Product {
+    constructor(product) {
+      this.name = product.name;
+      this.description = product.description;
+      this.price = product.price;
+      this.category = product.category;
+    }
+  
+    static create(newProduct, result) {
+      sql.query("INSERT INTO tbl_products SET ?", newProduct, (error, response) => {
+        if (error) {
+          console.log("Error: ", error);
+          result(error, null);
           return;
         }
-    
-        console.log("Products: ", res);
-        result(null, res);
+  
+        console.log("New Product Created: ", { id: response.insertId, ...newProduct });
+        result(null, { id: response.insertId, ...newProduct });
       });
-};
+    }
+
+    static getAll = (result) => {
+        let query = "SELECT * FROM tbl_products";
+    
+        sql.query(query, (e, res) => {
+            if (e) {
+              console.log("error: ", e);
+              result(null, e);
+              return;
+            }
+        
+            console.log("Products: ", res);
+            result(null, res);
+          });
+    };
+    
+    static getFeatured = (result) => {
+        let query = "SELECT * FROM tbl_products WHERE featured = true";
+    
+        sql.query(query, (e, res) => {
+            if (e) {
+              console.log("error: ", e);
+              result(null, e);
+              return;
+            }
+        
+            console.log("Products: ", res);
+            result(null, res);
+          });
+    };
+  }
 
 module.exports = Product;
