@@ -50,6 +50,21 @@ class Product {
             result(null, res);
           });
     };
+
+    static delete = (result, product_id) => {
+      let query = "DELETE * FROM tbl_products WHERE product_id = ?";
+  
+      sql.query(query, product_id, (e, res) => {
+          if (e) {
+            console.log("error: ", e);
+            result(null, e);
+            return;
+          }
+      
+          console.log("Product Deleeted: ", res);
+          result(null, res);
+        });
+  };
   }
 
 module.exports = Product;

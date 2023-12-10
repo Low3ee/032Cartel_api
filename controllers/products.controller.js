@@ -48,3 +48,14 @@ exports.getFeatured = (req, res) => {
   });
 };
 
+//delete product
+exports.delete = (req, res) => {
+  products.delete( product_id, (e) => {
+    if (e)
+      res.status(500).send({
+        message: e.message || "An error occurred while deleting the product.",
+      });
+    else res.send(product_id);
+  });
+};
+

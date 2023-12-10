@@ -12,6 +12,9 @@ module.exports = app => {
 
     router.get("/featured", productsController.getFeatured);
 
+    router.get("/product/delete", productsController.getFeatured);
+
+
     app.use('/api/products', router);
     
 };

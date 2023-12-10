@@ -31,6 +31,8 @@ app.use(bodyParser.json());
 //import routes
 require('./Routes/product.routes.js')(app);
 require('./Routes/user.routes.js')(app);
+require('./Routes/cart.routes.js')(app);
+
 
 
 // The code below starts the API with these parameters:
