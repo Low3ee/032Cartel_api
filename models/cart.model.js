@@ -4,6 +4,7 @@ class Cart {
     constructor(cart) {
       this.userId = cart.userId;
       this.productId = cart.productId;
+      this.quantity = cart.quantity;
     }
   
     static addToCart(item, result) {
@@ -14,8 +15,8 @@ class Cart {
           return;
         }
   
-        console.log("New Product Added to Cart: ", { id: response.insertId, ...item });
-        result(null, { id: response.insertId, ...item });
+        console.log("New Product Added to Cart: ", { id: response.cart_id, ...item });
+        result(null, { id: response.cart_id, ...item });
       });
     }
 

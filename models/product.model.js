@@ -31,13 +31,12 @@ class Product {
               return;
             }
         
-            console.log("Products: ", res);
             result(null, res);
           });
     };
     
     static getFeatured = (result) => {
-        let query = "SELECT * FROM tbl_products WHERE featured = true";
+        let query = "SELECT * FROM tbl_products WHERE featured != 0";
     
         sql.query(query, (e, res) => {
             if (e) {

@@ -1,19 +1,20 @@
 const Cart = require("../models/cart.model.js");
-const cart = require("../models/cart.model.js");
   
 //create new product call
 exports.add = (req, res) => {
-  if (!req.body || !req.body.productId) {
+  if (!req.body) {
     res.status(400).send({
-      message: "Product not found",
+      message: "Body not found",
     });
   } else {
-    const cart = {
+    console.log('Received FormData:', req.body);
+    const product = {
       product_id: req.body.productId,
       user_id: req.body.userId,
+      quantity: req.body.quantity
     };
 
-    cart.addToCart(product, (e, data) => {
+    Cart.addToCart(product, (e, data) => {
       if (e) {
         res.status(500).send({
           message: e.message || "An error occurred while adding the product to cart.",
