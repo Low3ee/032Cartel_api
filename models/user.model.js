@@ -25,7 +25,7 @@ class UserModel {
   static logInUser(user, result) {
     sql.query(
       "SELECT * FROM tbl_users WHERE user_email = ? AND user_password = ?",
-      [user.user_email, user.user_password],
+      [user.email, user.password],
       (error, response) => {
         if (error) {
           console.log("Error: ", error);
@@ -34,12 +34,13 @@ class UserModel {
         }
 
         if (!response || response.length === 0) {
-          result({ message: "User not found" }, null);
+          result({ message: `User not found for email: ${user.user_email}, password: ${user.user_password}` }, null);
           return;
         }
+        
 
         console.log("User Logged In: ", { ...response[0] });
-        result(null, { user: response[0] });
+        result(null, response[0]);
       }
     );
   }

@@ -6,8 +6,8 @@ module.exports = app => {
 
     var router = require('express').Router();
 
-    router.get('/view/:userId', cartController.viewCart);
-    router.post('/add', cartController.add);
+    router.get('/view/:userId',upload.none(), cartController.viewCart);
+    router.post('/add',upload.none(), cartController.add);
 
     app.use('/api/cart', router);
     

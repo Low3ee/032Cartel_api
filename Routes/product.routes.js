@@ -6,7 +6,7 @@ module.exports = app => {
 
     var router = require('express').Router();
 
-    router.post("/new", upload.none(), productsController.create);
+    router.post("/new", upload.any(), productsController.create);
 
     router.get("/", productsController.getAll);
 

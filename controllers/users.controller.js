@@ -1,29 +1,38 @@
 const users = require("../models/user.model.js");
 
 exports.registerUser = (req, res) => {
-  if (!req.body || !req.body.email) {
+  if (!req.body || !req.body.email || !req.body.first_name || !req.body.last_name || !req.body.password) {
     return res.status(400).json({
-      message: "Email is required.",
+      message: "All fields are required.",
     });
   }
 
   const user = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
+    user_fname: req.body.first_name,
+    user_lname: req.body.last_name,
+    user_email: req.body.email,
     user_password: req.body.password,
   };
 
+  console.log("User registering:", user);
+
   users.createUser(user, (error, data) => {
     if (error) {
+      console.error("Error creating user:", error);
       return res.status(500).json({
         message: error.message || "An error occurred while creating the account.",
       });
     }
 
-    return res.status(201).json(data);
+    console.log("User registered data:", data);
+
+    return res.status(201).json({
+      message: "User registered successfully.",
+      data: data,
+    });
   });
 };
+
 
 exports.loginUser = (req, res) => {
   if (!req.body || !req.body.email) {
@@ -43,13 +52,6 @@ exports.loginUser = (req, res) => {
         message: error.message || "An error occurred while creating the account.",
       });
     }
-
-    if (!data || !data.user) {
-      return res.status(404).json({
-        message: "User not found.",
-      });
-    }
-
-    return res.status(200).json(data);
+    return res.status(200).json({"data" : data});
   });
 };

@@ -5,18 +5,16 @@ const bodyParser = require('body-parser');
 //Import CORS
 const cors = require('cors');
 
-const multer = require('multer');
-const upload = multer();
 
 // This variable defines the port of your computer where the API will be available
 const PORT = 3000
 
 var corsSettings = {
-     origin: "http://localhost:51627",
+     origin: "*",
      methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Specify the HTTP methods allowed
-     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-     optionsSuccessStatus: 204, // Respond with a 204 status for preflight requests
-     allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization", // Specify the allowed headers
+     credentials: true, 
+     optionsSuccessStatus: 204,
+     allowedHeaders: "*", // Specify the allowed headers
      preflightContinue: false, // Disable preflight requests
      maxAge: 3600, // Set the maximum age (in seconds) for caching preflight requests
    };
@@ -30,7 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 //use corsSettings
 app.use(cors(corsSettings));
 
-app.use(upload.none())
 //test route
 // app.get('/', (req, res) => {
 //     res.json({ message: '032 Cartel Webiste Products API' });
