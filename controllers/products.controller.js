@@ -44,18 +44,32 @@ exports.getFeatured = (req, res) => {
       res.status(500).send({
         message: e.message || "An error occurred while getting the products.",
       });
-    else res.send(products);
+    else res.status(200).send(products);
   });
 };
 
 //delete product
 exports.delete = (req, res) => {
+  product_id = req.params.product_id;
   products.delete( product_id, (e) => {
-    if (e)
+    if (e){
       res.status(500).send({
         message: e.message || "An error occurred while deleting the product.",
       });
-    else res.send(product_id);
+    } else res.send(product_id);
+  });
+};
+
+exports.viewProductDetail = (req, res) => {
+  const product_id = req.params.productId; 
+  products.getDetails(product_id, (error, product) => {
+    if (error) {
+      res.status(500).send({
+        message: error.message || "An error occurred while fetching the product details."
+      });
+    } else {
+      res.status(200).send(product);
+    }
   });
 };
 

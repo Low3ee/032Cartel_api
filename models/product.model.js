@@ -53,7 +53,7 @@ class Product {
     static delete = (result, product_id) => {
       let query = "DELETE * FROM tbl_products WHERE product_id = ?";
   
-      sql.query(query, product_id, (e, res) => {
+      sql.query(query, [product_id], (e, res) => {
           if (e) {
             console.log("error: ", e);
             result(null, e);
@@ -64,6 +64,24 @@ class Product {
           result(null, res);
         });
   };
-  }
+
+  static getDetails = ( product_id, result) => {
+    const query = "SELECT * FROM tbl_products WHERE product_id = ?";
+
+    sql.query(query, [product_id], (error, res) => {
+      if (error) {
+        console.log("error: ", error);
+        result(error, null);
+        return;
+      }
+  
+      if (res.length) {
+        result(null, res[0]);
+      } else {
+        result({ message: "Product not found" }, null);
+      }
+    });
+  };
+};
 
 module.exports = Product;

@@ -14,6 +14,8 @@ module.exports = app => {
 
     router.get("/product/delete", productsController.getFeatured);
 
+    router.get("/product/:productId", productsController.viewProductDetail)
+
 
     app.use('/api/products', router);
     

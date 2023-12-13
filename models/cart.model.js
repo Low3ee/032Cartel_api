@@ -3,7 +3,7 @@ const sql = require("./db.js");
 class Cart {
     constructor(cart) {
       this.userId = cart.userId;
-      this.productId = cart.productId;
+      this.productId = cart.productId;      
       this.quantity = cart.quantity;
     }
   
@@ -22,7 +22,6 @@ class Cart {
 
     static viewCart = (userId, callback) => {
         let query = "SELECT * FROM tbl_cart WHERE user_id = ?";
-        console.log("user id:", userId);
         sql.query(query, [userId], (error, result) => {
             if (error) {
                 console.log("error: ", error);
